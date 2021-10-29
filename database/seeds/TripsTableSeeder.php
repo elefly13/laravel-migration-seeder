@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use app\Trip;
+use App\Trip;
+use Faker\Generator as Faker;
 class TripsTableSeeder extends Seeder
 {
     /**
@@ -9,14 +10,15 @@ class TripsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         for ($i = 0; $i < 50; $i++) {
             $new_trip = new Trip();
-            $new_trip->code_trip = 'AS54TY';
-            $new_trip->departure_date = '2020-02-13';
-            $new_trip->return_date = '2020-03-13';
-            $new_trip->locality = 'Torino';
+            $new_trip->code_trip = $faker->bothify('??-##-???');
+            $new_trip->departure_date = $faker->date();
+            $new_trip->return_date = $faker->date();
+            $new_trip->locality = $faker->city();
+            $new_trip->price = $faker->randomFloat(2, 2000, 10000);
             $new_trip->save();
         }   
     }
